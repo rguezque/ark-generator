@@ -1,0 +1,25 @@
+{
+    "name": "rguezque/ark-pressmark-generator",
+    "description": "Sencillo generador de cadenas ARK",
+    "homepage": "https://github.com/rguezque/ark-pressmark-generator",
+    "type": "api",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "rguezque\\ArkGenerator\\": "src/"
+        },
+        "files": [
+            "src/functions/helpers.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "Luis Rodríguez",
+            "role": "Original Developer",
+            "email": "rguezque@gmail.com",
+            "homepage": "https://github.com/rguezque"
+        }
+    ],
+    "minimum-stability": "beta",
+    "require": {}
+}
