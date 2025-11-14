@@ -9,7 +9,7 @@
             "rguezque\\ArkGenerator\\": "src/"
         },
         "files": [
-            "src/functions/helpers.php"
+            "src/functions/utils.php"
         ]
     },
     "authors": [

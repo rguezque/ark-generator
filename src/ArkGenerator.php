@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace rguezque\ArkGenerator;
 
-class Generator
+class ArkGenerator
 {
     /** @var string The current scheme for identifier */
     private string $scheme;
@@ -30,9 +30,9 @@ class Generator
      * Set a custom _shoulder suffix_ to create the suffix
      * 
      * @param string $shoulder_suffix The string suffix
-     * @return Generator
+     * @return ArkGenerator
      */
-    public function setShoulderSuffix(string $shoulder_suffix): Generator {
+    public function setShoulderSuffix(string $shoulder_suffix): ArkGenerator {
         $this->shoulder_suffix = pipe('clean_hyphens', 'trim')($shoulder_suffix);
         return $this;
     }
@@ -40,9 +40,9 @@ class Generator
     /**
      * Reset the _shoulder suffix_ to `null`
      * 
-     * @return Generator
+     * @return ArkGenerator
      */
-    public function resetShoulderSuffix(): Generator {
+    public function resetShoulderSuffix(): ArkGenerator {
         $this->shoulder_suffix = null;
         return $this;
     }

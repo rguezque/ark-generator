@@ -9,7 +9,7 @@ Para empezar crea una instancia de la clase `Generator` la cual recibe dos argum
 - El número NAAN. Un identificador único asignado por [ARK Alliance](https://arks.org/).
 - El esquema del identificador. En este caso por default es `ark`; sin embargo tambien puede especificarse como `doi`, `urn` o `hdl` (*Handle*)
 
-Después ejecuta el método `Generator::generate` el cual recibe dos argumentos:
+Después ejecuta el método `ArkGenerator::generate` el cual recibe dos argumentos:
 
 - Un *shoulder prefix*. Es un *string* que sirve a su vez como *prefijo*, del prefijo a generar. El usuario lo define.
 - Una *máscara*. Es una cadena alfabética que le dice al generador como formar el *shoulder suffix* (Es a su vez el *sufijo* del prefijo a conformar).
@@ -18,11 +18,11 @@ Después ejecuta el método `Generator::generate` el cual recibe dos argumentos:
 // index.php
 declare(strict_types = 1);
 
-use rguezque\ArkGenerator\Generator;
+use rguezque\ArkGenerator\ArkGenerator;
 
 require __DIR__.'/vendor/autoload.php';
 
-$gen = new Generator('68066');
+$gen = new ArkGenerator('68066');
 $result = $gen->generate('p3  ', 'aaadaaadk');
 
 echo print_r($result, true);
@@ -50,7 +50,7 @@ Esto devolvera un *array* con los datos resultantes, en una estructura como la s
 ];
 ```
 
-Si se prefiere definir un *shoulder prefix* explicitamente por el usuario, utiliza el método `Generator::setShoulderPrefix` antes de invocar `Generator::generate`. Restablece el *shoulder prefix* a `null` con `Generator::resetShoulderPrefix`. 
+Si se prefiere definir un *shoulder prefix* explicitamente por el usuario, utiliza el método `ArkGenerator::setShoulderPrefix` antes de invocar `ArkGenerator::generate`. Restablece el *shoulder prefix* a `null` con `ArkGenerator::resetShoulderPrefix`. 
 
 >[!NOTE]
 >Evita utilizar el NAAN `99999`, ni el *shoulder prefix* `fk`, ya que son considerados por lo regular como identificadores de prueba.
@@ -58,7 +58,7 @@ Si se prefiere definir un *shoulder prefix* explicitamente por el usuario, utili
 
 ## Sobre la mascara para generar los sufijos
 
-Al momento de generar un sufijo, el método `Generator::generate` necesita un *string* que sirve como una mascara que permite definir como se formara el sufijo del ARK; a continuación el significado de cada caracter o _flag_ que puede formar una mascara:
+Al momento de generar un sufijo, el método `ArkGenerator::generate` necesita un *string* que sirve como una mascara que permite definir como se formara el sufijo del ARK; a continuación el significado de cada caracter o _flag_ que puede formar una mascara:
 
 - `d`: Genera un número entero entre el `0` y el `9`.
 - `l`: Genera una letra del alfabeto (se omite la `ñ`) en minúsculas (`a-z`).
