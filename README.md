@@ -11,8 +11,10 @@ Para empezar crea una instancia de la clase `Generator` la cual recibe dos argum
 
 Después ejecuta el método `ArkGenerator::generate` el cual recibe dos argumentos:
 
-- Un *shoulder prefix*. Es un *string* que sirve a su vez como *prefijo*, del prefijo a generar. El usuario lo define.
-- Una *máscara*. Es una cadena alfabética que le dice al generador como formar el *shoulder suffix* (Es a su vez el *sufijo* del prefijo a conformar).
+- Un *shoulder*. Es un *string* que sirve a su vez como *cabecera* del prefijo a generar. El usuario lo define.
+- Una *máscara*. Es una cadena betanumérica que le dice al generador como formar el *blade* (Que se agrega al final del *shoulder*).
+
+Juntos forman el sufijo del ark.
 
 ```php
 // index.php
@@ -23,7 +25,7 @@ use rguezque\ArkGenerator\ArkGenerator;
 require __DIR__.'/vendor/autoload.php';
 
 $gen = new ArkGenerator('68066');
-$result = $gen->generate('p3  ', 'aaadaaadk');
+$result = $gen->generate('p3  ', 'cbbbddck');
 
 echo print_r($result, true);
 ```
@@ -40,32 +42,31 @@ Esto devolvera un *array* con los datos resultantes, en una estructura como la s
 [
     'scheme' => 'ark',
     'prefix' => '68066',
-    'shoulder_prefix' => 'p3',
-    'shoulder_suffix' => 'it81so08k',
-    'suffix' => 'p3it81so08k',
-    'identifier' => '68066/p3it81so08k',
-    'identifier_length' => '17',
-    'full_scheme' => 'ark:68066/p3it81so08k',
+    'bow' => 'ark:68066',
+    'shoulder' => 'p3',
+    'blade' => 'f8j491xk',
+    'suffix' => 'p3f8j491xk',
+    'identifier' => '68066/p3f8j491xk',
+    'full_scheme' => 'ark:68066/p3f8j491xk',
     'created_at' => '1763060594'
 ];
 ```
 
-Si se prefiere definir un *shoulder prefix* explicitamente por el usuario, utiliza el método `ArkGenerator::setShoulderPrefix` antes de invocar `ArkGenerator::generate`. Restablece el *shoulder prefix* a `null` con `ArkGenerator::resetShoulderPrefix`. 
+Si se prefiere definir un *blade* explicitamente por el usuario, utiliza el método `ArkGenerator::setBlade` antes de invocar `ArkGenerator::generate`. Restablece el *blade* a `null` con `ArkGenerator::resetShoulderPrefix`. 
 
 >[!NOTE]
->Evita utilizar el NAAN `99999`, ni el *shoulder prefix* `fk`, ya que son considerados por lo regular como identificadores de prueba.
->Si el *shoulder prefix* contiene guiones (`-`) estos serán ignorados. Ej. `x3-k` se convertirá a `x3k`.
+>Evita utilizar el NAAN `99999`, y el *shoulder* `fk`, ya que son considerados por lo regular como identificadores de prueba.
+>Si el *shoulder* contiene guiones (`-`) estos serán ignorados. Ej. `x3-k` se convertirá a `x3k`.
+>Por convención de ARK, todo se generará en minúsculas.
 
-## Sobre la mascara para generar los sufijos
+## Acerca de la mascara para generar los sufijos
 
 Al momento de generar un sufijo, el método `ArkGenerator::generate` necesita un *string* que sirve como una mascara que permite definir como se formara el sufijo del ARK; a continuación el significado de cada caracter o _flag_ que puede formar una mascara:
 
 - `d`: Genera un número entero entre el `0` y el `9`.
-- `l`: Genera una letra del alfabeto (se omite la `ñ`) en minúsculas (`a-z`).
-- `u`: Genera una letra del alfabeto (se omite la `Ñ`) en mayúsculas (`A-Z`).
-- `a`: Genera un caracter alfanúmerico (se omite la ñ) (`0-9`, `a-z`,).
-- `e`: Genera un caracter alfanúmerico extendido (se omite la `ñ` y la `Ñ`) (`0-9`, `a-z`, `A-Z`).
-- `s`: Genera un caracter alfanúmerico extendido incluyendo algunos caracteres especiales (se omite la `ñ` y la `Ñ`) (`0-9`, `a-z`, `A-Z`, `=~*+@_$`).
+- `c`: Genera una letra del alfabeto consonántico omitiendo la letra `l` (ele) para evitar confusiones con el número `1` (`bcdfghjkmnpqrstvwxyz`).
+- `b`: Genera un caracter betanúmerico (`bcdfghjkmnpqrstvwxz0123456789`).
+- `s`: Genera un caracter especial (`=~*+@_$`). Se omite `:` y `/` porque están reservados por el resolutor (*resolver*).
 
 Las *flags* con `case-sensitive` y cualquier otra letra que no sea una _flag_, se asignará directamente al prefijo resultante en el orden en que haya sido definida.
 
