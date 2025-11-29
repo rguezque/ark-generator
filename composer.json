@@ -2,7 +2,7 @@
     "name": "rguezque/ark-generator",
     "description": "Sencillo generador de identificadores ARK",
     "homepage": "https://github.com/rguezque/ark-generator",
-    "type": "api",
+    "type": "library",
     "license": "MIT",
     "autoload": {
         "psr-4": {
